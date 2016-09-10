@@ -29,15 +29,23 @@ html{
 	text-align: center;
 }
 
-/*.flipster ul li p:after{
-	content:'oo';
+.flipster ul li p:after{
+	/*content:'oo';*/
 	letter-spacing: -2px;
 	font-size: 12px;
 	color:orange;
 	margin-left:5px;
 	font-weight: bold;
-}*/
+}
+
+#currencyToggle{
+	text-align: center;
+}
 
 .bitcoinTrans{
+	color: white;
+}
+
+.bitcoinVal{
 	color: white;
 }

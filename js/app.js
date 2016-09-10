@@ -1,4 +1,21 @@
-let https = require("https");
+let https = require("https"),
+    axios = require ('axios'),
+    dateFormat = require('dateformat');
+
+
+let CURRENCY = "USD";
+let currRates;
+let txData = [];
+
+
+//A simple IFFE using an axios library to get up-to-date currency exchange rates
+const setCurrency = (() => {
+  axios.get('https://blockchain.info/ticker')
+    .then(res => {
+      currRates = res.data;
+    })
+    .catch(err => console.error(err));
+})();
 
 let getBitIndexes = function(cb) {
   let data = "",
@@ -16,7 +33,7 @@ let getBitIndexes = function(cb) {
          cb(res.statusCode, obj);
       });
     } else
-      console.error("Error in request");
+      console.error("Error. Status ", res.statusCode);
 
     res.resume();
   }).on('error', (e) => {
@@ -24,38 +41,65 @@ let getBitIndexes = function(cb) {
   });
 };
 
-let hydrateTenHashes = function(code, data) {
-  let { txIndexes } = data,
-      ul = $('.flipster ul'),
-      count = 0;
-  const url = 'https://blockchain.info/rawtx/';
+let interpretBitIndexes = function(code, data) {
+  const { txIndexes } = data,
+          url = 'https://blockchain.info/rawtx/';
 
+  txIndexes.slice(0, 10).forEach(txIndex =>
+    $.get(url + txIndex, hydrateTenTransactions)
+  );
+};
 
-  console.log("Part two", txIndexes);
+let hydrateTenTransactions = res => {
+  res.out.forEach(tx => {
+      tx.time = res.time;
 
-  txIndexes.slice(0, 10).forEach(idx => {
-    $.get(url + idx, function(res){
-      // let transaction = $('<li class="flip-item"><div class="flip-content flip-next"/></li>');
-      // let text = $('<p class="bitcoinTrans" />').text(res.hash);
-      // transaction.find('div').append(text);
-      // transaction.appendTo(ul);
+      txData.push(tx);
 
-      console.log("Part three", res);
-      let transaction = $('<li> <p class="bitcoinTrans" /> </li>');
+      if (txData.length === 10)
+        buildTransactions(txData);
+  });
+};
 
-      transaction.find('p').text(res.hash);
-      transaction.appendTo(ul);
-      count++;
-      // if (count === 10)
-        // initializeFlipster();
-    });
+let buildTransactions = (txData) => {
+  const ul = $('.flipster ul');
+  txData.forEach(tx => {
+    var t = buildSingleTx(tx);
+    ul.append(t);
   });
 
+  initializeFlipster();
+};
 
+let buildSingleTx = tx => {
+  let $tran = $('<div class="transaction" />'),
+      val = generateValue(tx.value),
+      date = new Date(tx.time),
+      fDate = dateFormat(date, "longTime");
+
+  $tran.append('<p class="bitcoinTrans">An exchange at\n ' + date + ': </p>');
+  $tran.append('<p class="bitcoinVal">' + val + '</p>');
+
+  return $('<li />').append($tran);
+};
+
+let generateValue = (num) => {
+  return currRates[CURRENCY].symbol +
+          (num / 100000000 * currRates[CURRENCY]['15m']).toFixed(2);
+};
+
+let toggleCurrency = (code) => {
+  CURRENCY = code;
+
+  $('.bitcoinVal').text((idx) => {
+    return generateValue(txData[idx].value);
+  });
 };
 
 let initializeFlipster = function() {
-  $('.flipster').flipster();
+  $('.flipster').flipster({
+      style: 'carousel'
+  });
 };
 
-getBitIndexes(hydrateTenHashes);
+getBitIndexes(interpretBitIndexes);
