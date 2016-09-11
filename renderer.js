@@ -140,8 +140,10 @@ const lastTenBits = (() => {
     $('#exchangeRates').fadeIn(1000);
   };
 
+  //called internally to trigger API calls upon module load
   getBitIndexes(interpretBitIndexes);
 
+  //Only one function is needed by index.html so nothing else needs to be returned
   return { toggleCurrency };
 
 })();
