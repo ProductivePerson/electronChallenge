@@ -110,7 +110,6 @@ const lastTenBits = (() => {
         fDate = dateFormat(date, "longTime"),
         type = tx.spent ? 'Expense' : 'Transfer';
 
-        console.log(tx);
     $tran.append(`<p class="bCoinTime">${type} #${tx.index} at ${fDate}: </p>`);
     $tran.append(`<p class="bCoinVal">${val}</p>`);
     $tran.attr("title", `address: ${tx.addr}`);
@@ -141,7 +140,7 @@ const lastTenBits = (() => {
         style: 'carousel',
         start: 0
     });
-    $('#exchangeRates').fadeIn(1000);
+    $('#exchangeRates, #links').fadeIn(1000);
   };
 
   //called internally to trigger API calls upon module load

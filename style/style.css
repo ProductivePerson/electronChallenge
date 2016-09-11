@@ -22,6 +22,7 @@ html{
 
 .flipster {
 	margin-top:18px;
+	padding-bottom: 50px;
 	font-size: larger;
 }
 
@@ -55,4 +56,8 @@ html{
 
 .bCoinVal{
 	color: #32cd32;
+}
+
+#links{
+	color: #ffffff;
 }
