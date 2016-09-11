@@ -9,7 +9,7 @@
 
   </head>
   <body>
-    <select id="exchangeRates" onchange="toggleCurrency()" hidden="true">
+    <select id="exchangeRates" onchange="app.toggleCurrency()" hidden="true">
     </select>
     <div class="flipster">
       <ul>
@@ -17,11 +17,12 @@
     </div>
   </body>
 
-  <script>
-    // You can also require other files to run in this process
-    let { toggleCurrency } = require('./renderer.js')
-  </script>
   <script>window.$ = window.jQuery = require('./js/jquery.min.js');</script>
   <script src="./js/jquery.flipster.min.js"></script>
-  <script src="./js/script.js" />
+  <script>
+    // calls an IFFI module that pulls from a bitcoin API and returns a single
+    // render function, which is called when a new currency is selected on
+    // line 12
+    let {app} = require('./renderer.js')
+  </script>
 </html>
