@@ -1,6 +1,7 @@
 *{
 	margin:0;
 	padding:0;
+	text-align: center;
 }
 
 html{
@@ -13,11 +14,15 @@ html{
 	height:100%;
 }
 
+#exchangeRates {
+	margin-top:110px;
+}
 
 /* The cover flow slider */
 
 .flipster {
-	margin-top:120px;
+	margin-top:18px;
+	font-size: larger;
 }
 
 .flipster ul li {
@@ -38,14 +43,16 @@ html{
 	font-weight: bold;
 }
 
-#currencyToggle{
-	text-align: center;
+.transaction{
+	width: 260px;
+	border-style: inset;
+	border-radius: 5px;
 }
 
-.bitcoinTrans{
+.bCoinTime{
 	color: white;
 }
 
-.bitcoinVal{
-	color: white;
+.bCoinVal{
+	color: green;
 }

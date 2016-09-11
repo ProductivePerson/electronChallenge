@@ -17,9 +17,17 @@ const setCurrency = (() => {
   axios.get('https://blockchain.info/ticker')
     .then(res => {
       currRates = res.data;
+      hydrateCurrencies(currRates);
     })
     .catch(err => console.error(err));
 })();
+
+const hydrateCurrencies = (xRates) => {
+  for (let country in xRates) {
+    $('#exchangeRates')
+      .append(`<option name=${country} value=${country}>${country}</option>`);
+    }
+};
 
 let getBitIndexes = function(cb) {
   let data = "",
@@ -81,8 +89,8 @@ let buildSingleTx = tx => {
       date = new Date(tx.time),
       fDate = dateFormat(date, "longTime");
 
-  $tran.append('<p class="bitcoinTrans">An exchange at\n ' + date + ': </p>');
-  $tran.append('<p class="bitcoinVal">' + val + '</p>');
+  $tran.append('<p class="bCoinTime">An exchange at\n ' + date + ': </p>');
+  $tran.append('<p class="bCoinVal">' + val + '</p>');
 
   return $('<li />').append($tran);
 };
@@ -92,10 +100,10 @@ let generateValue = (num) => {
           (num / 100000000 * currRates[CURRENCY]['15m']).toFixed(2);
 };
 
-let toggleCurrency = (code) => {
-  CURRENCY = code;
+let toggleCurrency = () => {
+  CURRENCY = $('#exchangeRates').val();
 
-  $('.bitcoinVal').text((idx) => {
+  $('.bCoinVal').text((idx) => {
     return generateValue(txData[idx].value);
   });
 };
@@ -104,6 +112,9 @@ let initializeFlipster = function() {
   $('.flipster').flipster({
       style: 'carousel'
   });
+  $('#exchangeRates').fadeIn(1000);
 };
 
 getBitIndexes(interpretBitIndexes);
+
+module.exports.toggleCurrency = toggleCurrency;

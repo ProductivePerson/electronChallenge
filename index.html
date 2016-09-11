@@ -2,48 +2,15 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Capco Challenge: Last ten bitcoin transactions</title>
 
     <link rel="stylesheet" href="./style/jquery.flipster.min.css">
     <link rel="stylesheet" href="./style/style.css">
 
   </head>
   <body>
-    <div id="currencyToggle">
-      <input type="button" value="USD"
-              onclick="toggleCurrency('USD')" />
-      <input type="button" value="EUR"
-              onclick="toggleCurrency('EUR')" />
-      <input type="button" value="ISK"
-              onclick="toggleCurrency('ISK')" />
-      <input type="button" value="HKD"
-              onclick="toggleCurrency('HKD')" />
-      <input type="button" value="TWD"
-              onclick="toggleCurrency('TWD')" />
-      <input type="button" value="CHF"
-              onclick="toggleCurrency('CHF')" />
-      <input type="button" value="DKK"
-              onclick="toggleCurrency('DKK')" />
-      <input type="button" value="CLP"
-              onclick="toggleCurrency('CLP')" />
-      <input type="button" value="CAD"
-              onclick="toggleCurrency('CAD')" />
-      <input type="button" value="JPY"
-              onclick="toggleCurrency('JPY')" />
-      <input type="button" value="NZD"
-              onclick="toggleCurrency('NZD')" />
-      <input type="button" value="RUB"
-              onclick="toggleCurrency('RUB')" />
-      <input type="button" value="PLN"
-              onclick="toggleCurrency('PLN')" />
-      <input type="button" value="KRW"
-              onclick="toggleCurrency('KRW')" />
-      <input type="button" value="THB"
-              onclick="toggleCurrency('THB')" />
-      <input type="button" value="CNY"
-              onclick="toggleCurrency('CNY')" />
-      <input type="button" value="CLP"
-    </div>
+    <select id="exchangeRates" onchange="toggleCurrency()" hidden="true">
+    </select>
     <div class="flipster">
       <ul>
       </ul>
@@ -52,8 +19,9 @@
 
   <script>
     // You can also require other files to run in this process
-    require('./renderer.js')
+    let { toggleCurrency } = require('./renderer.js')
   </script>
   <script>window.$ = window.jQuery = require('./js/jquery.min.js');</script>
   <script src="./js/jquery.flipster.min.js"></script>
+  <script src="./js/script.js" />
 </html>
