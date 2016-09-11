@@ -107,10 +107,13 @@ const lastTenBits = (() => {
     let $tran = $('<div class="transaction" />'),
         val = generateValue(tx.value),
         date = new Date(tx.time),
-        fDate = dateFormat(date, "longTime");
+        fDate = dateFormat(date, "longTime"),
+        type = tx.spent ? 'Expense' : 'Transfer';
 
-    $tran.append(`<p class="bCoinTime">Exchange #${tx.index} at ${date}: </p>`);
-    $tran.append('<p class="bCoinVal">' + val + '</p>');
+        console.log(tx);
+    $tran.append(`<p class="bCoinTime">${type} #${tx.index} at ${date}: </p>`);
+    $tran.append(`<p class="bCoinVal">${val}</p>`);
+    $tran.attr("title", `address: ${tx.addr}`);
 
     return $('<li />').append($tran);
   };
@@ -135,7 +138,8 @@ const lastTenBits = (() => {
   //triggers carousel feature for transactions
   let initializeFlipster = function() {
     $('.flipster').flipster({
-        style: 'carousel'
+        style: 'carousel',
+        start: 0
     });
     $('#exchangeRates').fadeIn(1000);
   };
