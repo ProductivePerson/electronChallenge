@@ -111,7 +111,7 @@ const lastTenBits = (() => {
         type = tx.spent ? 'Expense' : 'Transfer';
 
         console.log(tx);
-    $tran.append(`<p class="bCoinTime">${type} #${tx.index} at ${date}: </p>`);
+    $tran.append(`<p class="bCoinTime">${type} #${tx.index} at ${fDate}: </p>`);
     $tran.append(`<p class="bCoinVal">${val}</p>`);
     $tran.attr("title", `address: ${tx.addr}`);
 
