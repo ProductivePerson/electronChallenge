@@ -1,4 +1,4 @@
-# Capco Coding Challenge
+# Personal Coding Challenge
 
 **Design an application using Electron that displays the last ten bitcoin transactions**
 
