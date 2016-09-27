@@ -8,9 +8,9 @@ let https = require("https"),
 
 const lastTenBits = (() => {
   // I use three private variables to maintain state across the module
-  let CURRENCY = "USD";//determines which currency the bitcoin is output in
-  let exRates;//eventually becomes an object containing bitcoin exchange rates
-  let txData = [];//stores the last ten bitcoin transactions
+  let CURRENCY = "USD",//determines which currency the bitcoin is output in
+      exRates,//eventually becomes an object containing bitcoin exchange rates
+      txData = [];//stores the last ten bitcoin transactions
 
   //A simple IFFE using an axios library to get up-to-date currency exchange rates
   //This function does two things: sets the exchange rates object
@@ -151,4 +151,4 @@ const lastTenBits = (() => {
 
 })();
 
-module.exports = {app:lastTenBits} ;
+module.exports = {app:lastTenBits};
