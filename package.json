@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/ProductivePerson/electronChallenge#readme",
   "devDependencies": {
-    "electron": "^1.3.4"
+    "electron": "^9.1.0"
   },
   "dependencies": {
     "axios": "^0.14.0",
